@@ -1,0 +1,14 @@
+﻿@model dynamic
+
+
+
+<link href="https://vjs.zencdn.net/7.10.2/video-js.css" rel="stylesheet">
+<script src="https://vjs.zencdn.net/7.10.2/video.min.js"></script>
+
+<video id="liveStream" class="video-js vjs-default-skin" controls preload="auto" width="1024" height="768">
+    <source src="@Model.url" type="application/x-mpegURL">
+</video>
+
+<script>
+    var player = videojs('liveStream');
+</script>

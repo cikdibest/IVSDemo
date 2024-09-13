@@ -18,10 +18,15 @@ namespace IVSDemo.Controllers
         {
             return View();
         }
+        [HttpGet]
+        public IActionResult Watch(string url)
+        {
+            return View("Watch", new { url });
+        }
 
         // Canlı yayın başlatma isteğini işleyecek
         [HttpPost]
-        public async Task<IActionResult> StartLiveStream(string channelName,string recordingConfigurationArn)
+        public async Task<IActionResult> StartLiveStream(string channelName, string recordingConfigurationArn)
         {
             var response = await _ivsService.CreateChannel(channelName, recordingConfigurationArn);
 
