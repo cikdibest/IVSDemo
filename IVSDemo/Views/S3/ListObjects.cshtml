@@ -1,0 +1,11 @@
+﻿@model List<Amazon.S3.Model.S3Object>
+
+<h2>Bucket İçeriği</h2>
+
+<ul>
+    @foreach (var obj in Model)
+    {
+        <li>@obj.Key (@obj.Size bytes)
+        </li>
+    }
+</ul>

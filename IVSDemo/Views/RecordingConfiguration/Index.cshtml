@@ -1,0 +1,13 @@
+﻿@{
+    ViewData["Title"] = "Recording Configuration Oluştur";
+}
+
+<h2>Recording Configuration Oluştur</h2>
+
+<form action="/RecordingConfiguration/CreateRecordingConfiguration" method="post">
+    <label for="s3BucketArn">S3 Bucket</label>
+    <input type="text" id="s3BucketArn" name="s3BucketArn" required />
+    <label for="recordingReconnectWindowSeconds">Recording Reconnect Window Seconds:</label>
+    <input type="number" id="recordingReconnectWindowSeconds" name="recordingReconnectWindowSeconds" required />
+    <button type="submit">Oluştur</button>
+</form>

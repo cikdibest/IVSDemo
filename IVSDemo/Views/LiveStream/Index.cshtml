@@ -1,0 +1,13 @@
+﻿@{
+    ViewData["Title"] = "Canlı Yayın Başlat";
+}
+
+<h2>Canlı Yayın Başlat</h2>
+
+<form action="/LiveStream/StartLiveStream" method="post">
+    <label for="channelName">Kanal Adı:</label>
+    <input type="text" id="channelName" name="channelName" required />
+    <label for="recordingConfigurationArn">RecordingConfigurationArn</label>
+    <input type="text" id="recordingConfigurationArn" name="recordingConfigurationArn" required />
+    <button type="submit">Canlı Yayını Başlat</button>
+</form>

@@ -1,0 +1,15 @@
+﻿@model List<Amazon.S3.Model.S3Bucket>
+
+<h2>S3 Bucket Listesi</h2>
+
+<ul>
+    @foreach (var bucket in Model)
+    {
+        <li>
+            <a href="@Url.Action("ListObjects", "S3", new { bucketName = bucket.BucketName })">
+                @bucket.BucketName
+               
+            </a>
+        </li>
+    }
+</ul>

@@ -1,0 +1,72 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Canlı Yayın Başlat</title>
+</head>
+<body>
+    <h2>Canlı Yayın Başlat</h2>
+
+    <div>
+        <video id="localVideo" autoplay muted></video>
+    </div>
+
+    <div>
+        <button id="startLiveStreamBtn">Canlı Yayını Başlat</button>
+        <p id="streamUrl"></p>
+    </div>
+
+    <script>
+        const videoElement = document.getElementById('localVideo');
+        const startButton = document.getElementById('startLiveStreamBtn');
+        const streamUrlElement = document.getElementById('streamUrl');
+
+        let streamKey = ''; // Buraya IVS'den alınan stream key gelecektir.
+        let playbackUrl = ''; // IVS'den alınan oynatma URL'si
+
+        // Kameradan video akışını başlatma
+        async function startCamera() {
+            try {
+                const stream = await navigator.mediaDevices.getUserMedia({ video: true, audio: true });
+                videoElement.srcObject = stream;
+            } catch (err) {
+                console.error("Kamera erişimi başarısız: ", err);
+            }
+        }
+
+        // IVS üzerinden canlı yayını başlatma
+        async function startLiveStream() {
+            try {
+                // Controller'a istek atarak IVS kanalını oluştur ve stream key'i al
+                const response = await fetch('/LiveStream/StartLiveStream', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    }
+                });
+
+                const result = await response.json();
+                streamKey = result.streamKey;
+                playbackUrl = result.streamUrl;
+
+                streamUrlElement.innerHTML = `Yayın URL'si: <a href="${playbackUrl}" target="_blank">${playbackUrl}</a>`;
+
+                // RTMP üzerinden canlı yayını başlatmak için kodu burada başlatabilirsiniz (örn. WebRTC, OBS entegrasyonu)
+                console.log("Canlı yayın başladı:", playbackUrl);
+
+                // Video yayını başlatma süreci, burada OBS veya WebRTC üzerinden yönlendirilebilir.
+            } catch (error) {
+                console.error("Canlı yayın başlatılamadı: ", error);
+            }
+        }
+
+        startButton.addEventListener('click', () => {
+            startLiveStream();
+        });
+
+        // Sayfa yüklendiğinde kamerayı başlat
+        window.onload = startCamera;
+    </script>
+</body>
+</html>
